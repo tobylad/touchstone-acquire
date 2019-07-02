@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import editIcon from './pencil-alt-solid.svg';
 
 function UpdateTarget(props) {
@@ -6,6 +6,19 @@ function UpdateTarget(props) {
   const [tName, setTName] = useState(props.currentTarget.name);
   const [tPrice, setTPrice] = useState(props.currentTarget.price);
   const [tLocation, setTLocation] = useState(props.currentTarget.location);
+
+  useEffect(() => {
+      setTName(props.currentTarget.name);
+      setTPrice(props.currentTarget.price);
+      setTLocation(props.currentTarget.location);
+    },
+    
+    [
+      props.currentTarget.name, 
+      props.currentTarget.price, 
+      props.currentTarget.location
+    ]
+  )
 
   const formClass = () => {
     if (formHidden === true) {
@@ -39,9 +52,9 @@ function UpdateTarget(props) {
     e.preventDefault();
     toggleFormClass();
     props.edit(tName, tPrice, tLocation, props.i);
-    setTName(tName);
-    setTPrice(tPrice);
-    setTLocation(tLocation);
+    setTName(props.currentTarget.name);
+    setTPrice(props.currentTarget.price);
+    setTLocation(props.currentTarget.location);
   }
 
   return (
