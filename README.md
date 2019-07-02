@@ -1,4 +1,4 @@
-##To the Insiten hiring team:
+# To the Insiten hiring team:
 
 Hi, and welcome to Touchstone Acquire!  I'm Toby Ladislas, and this is my coding challenge - hope you enjoy!
 
