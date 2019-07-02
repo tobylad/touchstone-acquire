@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function TargetForm(props) {
+function CreateTarget(props) {
   const [tName, setTName] = useState("");
   const [tPrice, setTPrice] = useState("");
   const [tLocation, setTLocation] = useState("");
@@ -10,7 +10,7 @@ function TargetForm(props) {
   }
 
   const handlePriceChange = (e) => {
-    setTPrice(e.target.value);
+    setTPrice(parseInt(e.target.value));
   }
 
   const handleLocationChange = (e) => {
@@ -27,7 +27,7 @@ function TargetForm(props) {
 
   return (
     <form onSubmit={handleSubmit} className="container">
-      <p>Add a company</p>
+      <p><strong>Add a new target</strong></p>
 
       <div className="row">
         <label className="col-lg-6 col-12">
@@ -50,9 +50,9 @@ function TargetForm(props) {
         </label>
       </div>
 
-      <button>Submit</button>
+      <button>Add Company</button>
     </form>
   )
 }
 
-export default TargetForm;
+export default CreateTarget;
