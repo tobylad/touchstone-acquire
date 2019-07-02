@@ -1,8 +1,48 @@
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+button {
+  background-color: inherit;
+  border: none;
+  box-shadow: none;
+}
+
 .hide {
   display: none;
 }
 
-ul {
-  padding: 0;
-  list-style-type: none;
+
+.icon {
+  height: 17px;
+  width: 17px;
+}
+
+.plus-icon {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  transform: translate(3px, -2px);
+}
+
+.update-button {
+  background-color: #1480e4;
+  border: 1px solid #1480e4;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.edit-button {
+  text-align: left;
+}
+
+.edit-button:focus {
+  outline: none;
+}
+
+.edit-form {
+  margin-top: 5px;
 }

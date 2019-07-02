@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import deleteIcon from './times-solid.svg';
 
 // Components
 import CreateTarget from './CreateTarget';
@@ -13,34 +14,27 @@ import './App.css';
 function App() {
   const [targets, setTargets] = useState(mockTargets);
 
-  // Create
-  const addTarget = (targetName, targetPrice, targetLocation) => {
-    const newTargets = [...targets, { 
-        name: targetName, 
-        price: targetPrice, 
-        location: targetLocation
-      }
-    ];
+  // Create / Update
+  const targetUpdates = (targetName, targetPrice, targetLocation, i) => {
+    let newTargets;
 
-    setTargets(newTargets);
-  }
+    if (i === undefined) {
+      
+      newTargets = [...targets, { 
+          name: targetName, 
+          price: targetPrice, 
+          location: targetLocation
+        }
+      ];
 
-  // Update
-  const editTargetName = (i, newName) => {
-    const newTargets = [...targets];
-    newTargets[i].name = newName;
-    setTargets(newTargets);
-  }
-
-  const editTargetPrice = (i, newPrice) => {
-    const newTargets = [...targets];
-    newTargets[i].price = parseInt(newPrice);
-    setTargets(newTargets);
-  }
-
-  const editTargetLocation = (i, newLocation) => {
-    const newTargets = [...targets];
-    newTargets[i].location = newLocation;
+    } else {
+      
+      newTargets = [...targets];
+      newTargets[i].name = targetName;
+      newTargets[i].price = targetPrice;
+      newTargets[i].location = targetLocation;
+      
+    }
     setTargets(newTargets);
   }
 
@@ -58,40 +52,36 @@ function App() {
     return (
       <ul key={index}>
         <li className="row">
-          <div className="col-6 col-lg-3"> 
+          <div className="col-12 col-lg-6"> 
             Name: {target.name} 
           </div>
-
-          <UpdateTarget edit={editTargetName} i={index} currentValue={target.name}/>
         </li>
 
         <li className="row">
-          <div className="col-6 col-lg-3">
+          <div className="col-12 col-lg-6">
             Asking Price: {formatCurrency(target.price)} 
           </div>
-
-          <UpdateTarget edit={editTargetPrice} i={index} currentValue={target.price} />
         </li>
 
         <li className="row">
-          <div className="col-6 col-lg-3">
+          <div className="col-12 col-lg-6">
             Location: {target.location}
           </div>
-
-          <UpdateTarget edit={editTargetLocation} i={index} currentValue={target.location} />
         </li>
 
-        <li><button onClick={() => destroyTarget(index)}>Delete</button></li>
+        <div className="row">
+          <div className="col-2 col-lg-1">
+            <button onClick={() => destroyTarget(index)}>
+              <img src={deleteIcon} alt="delete" className="icon" />
+            </button>
+          </div>
+
+          <UpdateTarget currentTarget={target} edit={targetUpdates} i={index} />
+        </div>
       </ul>
+
     );
   })
-
-
-  let logState = () => {
-    console.log(targets);
-  }
-
-
 
   return (
     <div className="App">
@@ -100,7 +90,6 @@ function App() {
         <div className="row">
           <div className="col-12 col-lg-6">
             <h2>Touchstone Acquire</h2>
-            <button onClick={logState}>Companies</button>
           </div>
         </div>
 
@@ -111,7 +100,7 @@ function App() {
         </div>
       </div>
 
-      <CreateTarget add={addTarget} />
+      <CreateTarget add={targetUpdates} />
 
       <Footer />
     </div>

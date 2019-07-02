@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import editIcon from './pencil-alt-solid.svg';
 
 function UpdateTarget(props) {
   const [formHidden, setFormHidden] = useState(true);
-  const [value, setValue] = useState(props.currentValue);
+  const [tName, setTName] = useState(props.currentTarget.name);
+  const [tPrice, setTPrice] = useState(props.currentTarget.price);
+  const [tLocation, setTLocation] = useState(props.currentTarget.location);
 
   const formClass = () => {
     if (formHidden === true) {
-      return "col-4 hide";
+      return "col-12 edit-form hide";
     } else {
-      return "col-4";
+      return "col-12 edit-form";
     }
   }
 
@@ -20,25 +23,41 @@ function UpdateTarget(props) {
     }
   }
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
+  const handleNameChange = (e) => {
+    setTName(e.target.value);
+  }
+
+  const handlePriceChange = (e) => {
+    setTPrice(parseInt(e.target.value));
+  }
+
+  const handleLocationChange = (e) => {
+    setTLocation(e.target.value);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     toggleFormClass();
-    props.edit(props.i, value);
-    setValue(value);
+    props.edit(tName, tPrice, tLocation, props.i);
+    setTName(tName);
+    setTPrice(tPrice);
+    setTLocation(tLocation);
   }
 
   return (
-      <div className="col-3 col-lg-3">
+      <div className="col-10 col-lg-5">
         <div className="row">
-          <button className="col-4" onClick={toggleFormClass}>Edit</button>
+          <button className="col-12 col-lg-4 edit-button" onClick={toggleFormClass}>
+            <img src={editIcon} alt="edit" className="icon" />
+          </button>
 
           <form onSubmit={handleSubmit} className={formClass()}>
-              <input onChange={handleChange} value={value} />
-              <button>Update</button>
+              <input onChange={handleNameChange} value={tName} /> <br/>
+              <input onChange={handlePriceChange} value={tPrice} /> <br/>
+              <input onChange={handleLocationChange} value={tLocation} /> <br/>
+
+
+              <button className="update-button">Update</button>
           </form>
         </div>
       </div>

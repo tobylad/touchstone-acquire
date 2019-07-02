@@ -13,7 +13,13 @@ function Footer() {
       <div className="row">
         <div className="col-3">React</div>
         <div className="col-3">Create-React-App</div>
-        <div className="col-3">Font Awesome</div>
+        <div className="col-3">
+          <a href="https://fontawesome.com/license" 
+            target="_blank" 
+            rel="noopener noreferrer">
+            Font Awesome
+          </a>
+        </div>
         <div className="col-3">Insiten</div>
       </div>
     </footer>
