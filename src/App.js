@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import './App.css';
-import { mockTargets } from './mock-targets.js';
-import { formatCurrency } from './utils.js';
+
+// Components
 import CreateTarget from './CreateTarget';
 import UpdateTarget from './UpdateTarget';
+import Footer from './Footer';
+
+// Assets
+import { mockTargets } from './mock-targets.js';
+import { formatCurrency } from './utils.js';
+import './App.css';
 
 function App() {
   const [targets, setTargets] = useState(mockTargets);
@@ -39,6 +44,15 @@ function App() {
     setTargets(newTargets);
   }
 
+  // Delete
+  const destroyTarget = (i) => {
+    const newTargets = [...targets];
+    newTargets.splice(i, 1);
+    setTargets(newTargets);
+  }
+
+
+
   // Read
   const targetList = targets.map((target, index) => {
     return (
@@ -67,6 +81,7 @@ function App() {
           <UpdateTarget edit={editTargetLocation} i={index} currentValue={target.location} />
         </li>
 
+        <li><button onClick={() => destroyTarget(index)}>Delete</button></li>
       </ul>
     );
   })
@@ -89,12 +104,16 @@ function App() {
           </div>
         </div>
 
-            
-        <div>{targetList}</div>
-
-            <CreateTarget add={addTarget} />
-
+        <div className="row">
+          <div className="col-12">
+            {targetList}
+          </div>
+        </div>
       </div>
+
+      <CreateTarget add={addTarget} />
+
+      <Footer />
     </div>
   );
 }

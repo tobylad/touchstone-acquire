@@ -32,7 +32,7 @@ function UpdateTarget(props) {
   }
 
   return (
-      <div className="col-6 col-lg-3">
+      <div className="col-3 col-lg-3">
         <div className="row">
           <button className="col-4" onClick={toggleFormClass}>Edit</button>
 
