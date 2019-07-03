@@ -101,13 +101,14 @@ button {
   width: 100%;
 }
 
+.edit-button:focus, .icon-button:focus {
+  outline: none;
+}
+
 .edit-form {
   margin-top: 5px;
 }
 
-.edit-button:focus {
-  outline: none;
-}
 
 .label-edit {
   padding: 5px;
