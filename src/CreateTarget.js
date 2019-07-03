@@ -4,18 +4,19 @@ import addIcon from './plus-solid.svg';
 function CreateTarget(props) {
   const [formHidden, setFormHidden] = useState(true);
   const [tName, setTName] = useState("");
-  const [tPrice, setTPrice] = useState("");
+  const [tRevenue, setTRevenue] = useState("");
+  const [tMargin, setTMargin] = useState("");
   const [tLocation, setTLocation] = useState("");
 
-  const formClass = () => {
+  const formWrapperClass = () => {
     if (formHidden === true) {
       return "hide";
     } else {
-      return "";
+      return "col-10 col-lg-3 offset-1 offset-lg-0 create-tile";
     }
   }
 
-  const toggleFormClass = () => {
+  const toggleFormWrapperClass = () => {
     if (formHidden === true) {
       setFormHidden(false);
     } else {
@@ -27,8 +28,12 @@ function CreateTarget(props) {
     setTName(e.target.value);
   }
 
-  const handlePriceChange = (e) => {
-    setTPrice(parseInt(e.target.value));
+  const handleRevenueChange = (e) => {
+    setTRevenue(e.target.value);
+  }
+
+  const handleMarginChange = (e) => {
+    setTMargin(e.target.value);
   }
 
   const handleLocationChange = (e) => {
@@ -37,51 +42,52 @@ function CreateTarget(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.add(tName, tPrice, tLocation);
+    props.add(tName, tRevenue, tMargin, tLocation);
     setTName("");
-    setTPrice("");
+    setTRevenue("");
+    setTMargin("");
     setTLocation("");
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12">
+    <React.Fragment>
+
+        <div className={formWrapperClass()}>
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <label className="col-4 label-edit"><span>Name:</span></label>
+              <input className="col-8 input-edit" onChange={handleNameChange} value={tName} />
+            </div>
+
+            <div className="row">
+              <label className="col-4 label-edit"><span>Revenue:</span></label>
+              <input className="col-8 input-edit" onChange={handleRevenueChange} value={tRevenue} /> <br/>
+            </div>
+
+            <div className="row">
+              <label className="col-4 label-edit"><span>Margin:</span></label>
+              <input className="col-8 input-edit" onChange={handleMarginChange} value={tMargin} /> <br/>
+            </div>
+
+            <div className="row">
+              <label className="col-4 label-edit"><span>Location:</span></label>
+              <input className="col-8 input-edit" onChange={handleLocationChange} value={tLocation} /> <br/>
+            </div>
+
+            <button className="update-button" onClick={toggleFormWrapperClass}>
+              Add
+            </button>
+          </form>
+        </div>
+        
+        <div className="col-10 col-lg-3 offset-1 offset-lg-0">
           <span><strong>Add a new target</strong></span>
             <img src={addIcon} 
             alt="add"
             className="plus-icon"
-            onClick={toggleFormClass} />
+            onClick={toggleFormWrapperClass} />
         </div>
-      </div>
-
-      <form onSubmit={handleSubmit} className={formClass()}>
-        <div className="row">
-          <label className="col-lg-6 col-12">
-            Name:
-            <input type="text" value={tName} onChange={handleNameChange} />
-          </label>
-        </div>
-
-          <div className="row">
-          <label className="col-lg-6 col-12">
-            Price:
-            <input type="text" value={tPrice} onChange={handlePriceChange} />
-          </label>
-        </div>
-
-          <div className="row">
-          <label className="col-lg-6 col-12">
-            Location:
-            <input type="text" value={tLocation} onChange={handleLocationChange} />
-          </label>
-        </div>
-
-        <button className="update-button" onClick={toggleFormClass}>
-          Add
-        </button>
-      </form>
-    </div>
+    </React.Fragment>
   )
 }
 

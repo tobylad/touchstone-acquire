@@ -1,6 +1,29 @@
+div.page-title {
+  color: #255F85;
+  padding: 20px;
+  text-align: center;
+}
+
 ul {
-  padding: 0;
   list-style-type: none;
+}
+
+ul.tile, div.create-tile {
+  background-color: #e5e5e5;
+  border: 5px solid #fff;
+  margin-bottom: 8px;
+  padding: 20px;
+}
+
+li.tile-title {
+  color: #5386E4;
+  text-align: center;
+}
+
+span.property {
+  color: #5F5E60;
+  font-style: italic;
+  font-weight: bold;
 }
 
 button {
@@ -12,7 +35,6 @@ button {
 .hide {
   display: none;
 }
-
 
 .icon {
   height: 17px;
@@ -27,22 +49,27 @@ button {
 }
 
 .update-button {
-  background-color: #1480e4;
-  border: 1px solid #1480e4;
-  border-radius: 10px;
+  background-color: #5386E4;
+  border: 1px solid #5386E4;
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.87rem;
   font-weight: bold;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.edit-button {
-  text-align: left;
+.edit-form {
 }
 
 .edit-button:focus {
   outline: none;
 }
 
-.edit-form {
-  margin-top: 5px;
+.label-edit {
+  padding: 5px;
+}
+
+.input-edit {
+  border: 1px solid #255F85;
+  padding: 5px;
 }

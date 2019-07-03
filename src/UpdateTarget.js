@@ -4,27 +4,30 @@ import editIcon from './pencil-alt-solid.svg';
 function UpdateTarget(props) {
   const [formHidden, setFormHidden] = useState(true);
   const [tName, setTName] = useState(props.currentTarget.name);
-  const [tPrice, setTPrice] = useState(props.currentTarget.price);
+  const [tRevenue, setTRevenue] = useState(props.currentTarget.revenue);
+  const [tMargin, setTMargin] = useState(props.currentTarget.margin);
   const [tLocation, setTLocation] = useState(props.currentTarget.location);
 
   useEffect(() => {
       setTName(props.currentTarget.name);
-      setTPrice(props.currentTarget.price);
+      setTRevenue(props.currentTarget.revenue);
+      setTMargin(props.currentTarget.margin);
       setTLocation(props.currentTarget.location);
     },
-    
+
     [
       props.currentTarget.name, 
-      props.currentTarget.price, 
+      props.currentTarget.revenue,
+      props.currentTarget.margin, 
       props.currentTarget.location
     ]
   )
 
   const formClass = () => {
     if (formHidden === true) {
-      return "col-12 edit-form hide";
+      return "hide";
     } else {
-      return "col-12 edit-form";
+      return "";
     }
   }
 
@@ -40,8 +43,12 @@ function UpdateTarget(props) {
     setTName(e.target.value);
   }
 
-  const handlePriceChange = (e) => {
-    setTPrice(parseInt(e.target.value));
+  const handleRevenueChange = (e) => {
+    setTRevenue(e.target.value);
+  }
+
+  const handleMarginChange = (e) => {
+    setTMargin(e.target.value);
   }
 
   const handleLocationChange = (e) => {
@@ -51,28 +58,50 @@ function UpdateTarget(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     toggleFormClass();
-    props.edit(tName, tPrice, tLocation, props.i);
+    props.edit(tName, tRevenue, tMargin, tLocation, props.i);
     setTName(props.currentTarget.name);
-    setTPrice(props.currentTarget.price);
+    setTRevenue(props.currentTarget.margin);
+    setTMargin(props.currentTarget.margin)
     setTLocation(props.currentTarget.location);
   }
 
   return (
-      <div className="col-10 col-lg-5">
+      <div>
         <div className="row">
-          <button className="col-12 col-lg-4 edit-button" onClick={toggleFormClass}>
-            <img src={editIcon} alt="edit" className="icon" />
-          </button>
-
-          <form onSubmit={handleSubmit} className={formClass()}>
-              <input onChange={handleNameChange} value={tName} /> <br/>
-              <input onChange={handlePriceChange} value={tPrice} /> <br/>
-              <input onChange={handleLocationChange} value={tLocation} /> <br/>
-
-
-              <button className="update-button">Update</button>
-          </form>
+          <div className="col-12">
+            <button className="edit-button" onClick={toggleFormClass}>
+              <img src={editIcon} alt="edit" className="icon" />
+            </button>
+          </div>
         </div>
+
+        <form onSubmit={handleSubmit} className={formClass()}>
+          <div className="row">
+            <label className="col-4 label-edit"><span>Name:</span></label>
+            <input className="col-8 input-edit" onChange={handleNameChange} value={tName} />
+          </div>
+
+          <div className="row">
+            <label className="col-4 label-edit"><span>Revenue:</span></label>
+            <input className="col-8 input-edit" onChange={handleRevenueChange} value={tRevenue} /> <br/>
+          </div>
+
+          <div className="row">
+            <label className="col-4 label-edit"><span>Margin:</span></label>
+            <input className="col-8 input-edit" onChange={handleMarginChange} value={tMargin} /> <br/>
+          </div>
+
+          <div className="row">
+            <label className="col-4 label-edit"><span>Location:</span></label>
+            <input className="col-8 input-edit" onChange={handleLocationChange} value={tLocation} /> <br/>
+          </div>
+
+          <div className="row">
+            <div className="col-12">
+              <button className="update-button">Update</button>
+            </div>
+          </div>
+        </form>
       </div>
   );
 }
