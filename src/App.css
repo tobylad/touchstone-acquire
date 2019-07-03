@@ -1,7 +1,16 @@
+.App {
+  font-family: 'Lato', sans-serif;
+}
+
 div.page-title {
   color: #255F85;
   padding: 20px;
+  font-family: 'Exo 2', sans-serif;
   text-align: center;
+}
+
+div.page-title h1 {
+  font-weight: 900;
 }
 
 ul {
@@ -15,14 +24,39 @@ ul.tile, div.create-tile {
   padding: 20px;
 }
 
+.status {
+  border-radius: 5px;
+  height: 5px;
+  margin-top: 10px;
+}
+
+.researching {
+  background-color: #CCC !important;
+}
+
+.pending {
+  background-color: #7fddd5 !important;
+}
+
+.approved {
+  background-color: #48E290 !important;
+}
+
+.declined {
+  background-color: #FF7F7F !important;
+}
+
 li.tile-title {
   color: #5386E4;
   text-align: center;
 }
 
+.tile h4 {
+  font-weight: bolder;
+}
+
 span.property {
   color: #5F5E60;
-  font-style: italic;
   font-weight: bold;
 }
 
@@ -48,6 +82,15 @@ button {
   transform: translate(3px, -2px);
 }
 
+.cancel-icon {
+  cursor: pointer;
+  transform: translateY(9px);
+}
+
+.cancel-icon-wrapper {
+  text-align: right;
+}
+
 .update-button {
   background-color: #5386E4;
   border: 1px solid #5386E4;
@@ -59,6 +102,7 @@ button {
 }
 
 .edit-form {
+  margin-top: 5px;
 }
 
 .edit-button:focus {
@@ -72,4 +116,10 @@ button {
 .input-edit {
   border: 1px solid #255F85;
   padding: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  div.page-title h1 {
+    font-size: 200%;
+  }
 }

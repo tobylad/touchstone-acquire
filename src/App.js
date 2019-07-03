@@ -13,6 +13,18 @@ import './App.css';
 function App() {
   const [targets, setTargets] = useState(mockTargets);
 
+  const tileStatusClass = (status) => {
+    if (status === "researching") {
+      return " researching";
+    } else if (status === "pending") {
+      return " pending";
+    } else if (status === "approved") {
+      return " approved";
+    } else if (status === "declined") {
+      return " declined";
+    }
+  }
+
   // Create / Update
   const targetUpdates = (targetName, targetRevenue, targetMargin, targetLocation, i) => {
     let newTargets;
@@ -74,8 +86,12 @@ function App() {
 
           <div className="col-12">
             <li>
-                <span className="property">Location:</span> {target.location}
+              <span className="property">Location:</span> {target.location}
             </li>
+          </div>
+
+          <div className="col-12">
+            <li className={"status" + tileStatusClass(target.status)}></li>
           </div>
         </div>
 
