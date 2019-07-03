@@ -25,9 +25,9 @@ function UpdateTarget(props) {
 
   const formClass = () => {
     if (formHidden === true) {
-      return "hide";
+      return "edit-form hide";
     } else {
-      return "";
+      return "edit-form";
     }
   }
 

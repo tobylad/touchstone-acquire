@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import addIcon from './plus-solid.svg';
+import deleteIcon from './times-solid.svg';
 
 function CreateTarget(props) {
   const [formHidden, setFormHidden] = useState(true);
@@ -74,9 +75,20 @@ function CreateTarget(props) {
               <input className="col-8 input-edit" onChange={handleLocationChange} value={tLocation} /> <br/>
             </div>
 
-            <button className="update-button" onClick={toggleFormWrapperClass}>
-              Add
-            </button>
+            <div className="row">
+              <div className="col-10">
+                <button className="update-button" onClick={toggleFormWrapperClass}>
+                  Add
+                </button>
+              </div>
+
+              <div className="col-1 cancel-icon-wrapper">
+                <img src={deleteIcon} 
+                className="icon cancel-icon" 
+                alt="cancel"
+                onClick={toggleFormWrapperClass} />
+              </div>
+            </div>
           </form>
         </div>
         

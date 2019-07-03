@@ -1,7 +1,15 @@
 footer {
+  background-color: #255F85;
+  color: #e5e5e5;
   margin-top: 50px;
+  padding-bottom: 20px;
 }
 
-.footer-header {
+footer a, footer a:hover {
+  color: inherit;
+}
+
+.footer-header, .credit {
   text-align: center;
+  margin-top: 4px;
 }
