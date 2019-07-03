@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import deleteIcon from './times-solid.svg';
+
+import researchIcon from './flask-solid.svg';
+import pendingIcon from './hourglass-half-solid.svg';
+import approvedIcon from './check-solid.svg';
+import declinedIcon from './times-solid.svg';
+import deleteIcon from './trash-alt-solid.svg';
 
 // Components
 import CreateTarget from './CreateTarget';
 import UpdateTarget from './UpdateTarget';
 import Footer from './Footer';
+import Legend from './Legend';
 
 // Assets
 import { mockTargets } from './mock-targets.js';
@@ -52,6 +58,19 @@ function App() {
     setTargets(newTargets);
   }
 
+  const updateStatus = (i, newStatus) => {
+    const statusMap = {
+      "researching": "researching",
+      "pending": "pending",
+      "approved": "approved",
+      "declined": "declined"
+    };
+
+    let newTargets = [...targets];
+    newTargets[i].status = statusMap[newStatus];
+    setTargets(newTargets);
+  }
+
   // Delete
   const destroyTarget = (i) => {
     const newTargets = [...targets];
@@ -96,8 +115,43 @@ function App() {
         </div>
 
         <div className="row">
+
           <div className="col-2">
-            <button onClick={() => destroyTarget(index)}>
+            <button 
+              onClick={() => updateStatus(index, "researching")}
+              className="icon-button">
+              <img src={researchIcon} alt="researching" className="icon" />
+            </button>
+          </div>
+
+          <div className="col-2">
+            <button 
+              onClick={() => updateStatus(index, "pending")}
+              className="icon-button">
+              <img src={pendingIcon} alt="pending" className="icon" />
+            </button>
+          </div>
+
+          <div className="col-2">
+            <button 
+              onClick={() => updateStatus(index, "approved")}
+              className="icon-button">
+              <img src={approvedIcon} alt="approve" className="icon" />
+            </button>
+          </div>
+
+          <div className="col-2">
+            <button 
+              onClick={() => updateStatus(index, "declined")}
+              className="icon-button">
+              <img src={declinedIcon} alt="decline" className="icon" />
+            </button>
+          </div>
+
+          <div className="col-2 offset-1">
+            <button 
+              onClick={() => destroyTarget(index)}
+              className="icon-button">
               <img src={deleteIcon} alt="delete" className="icon" />
             </button>
           </div> 
@@ -113,6 +167,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
+
         
         <div className="row">
           <div className="col-12 page-title">
@@ -122,6 +177,8 @@ function App() {
       </div>
       
       <div className="container">
+        <Legend />
+        
         <div className="row">
           {targetList}
           <CreateTarget add={targetUpdates} />
