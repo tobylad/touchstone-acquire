@@ -13,6 +13,11 @@ function UpdateTarget(props) {
   const [locationError, setLocationError] = useState(false);
 
   useEffect(() => {
+      setFormHidden(true);
+      setNameError(false);
+      setRevenueError(false);
+      setMarginError(false);
+      setLocationError(false);
       setTName(props.currentTarget.name);
       setTRevenue(props.currentTarget.revenue);
       setTMargin(props.currentTarget.margin);
