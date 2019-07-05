@@ -7,6 +7,10 @@ function UpdateTarget(props) {
   const [tRevenue, setTRevenue] = useState(props.currentTarget.revenue);
   const [tMargin, setTMargin] = useState(props.currentTarget.margin);
   const [tLocation, setTLocation] = useState(props.currentTarget.location);
+  const [nameError, setNameError] = useState(false);
+  const [revenueError, setRevenueError] = useState(false);
+  const [marginError, setMarginError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
 
   useEffect(() => {
       setTName(props.currentTarget.name);
@@ -55,6 +59,94 @@ function UpdateTarget(props) {
     setTLocation(e.target.value);
   }
 
+  const handleError = (e, currentInput) => {
+    const inputMap = {
+      "name": setNameError,
+      "revenue": setRevenueError,
+      "margin": setMarginError,
+      "location": setLocationError
+    }
+
+    if (e.target.value === "") {
+      inputMap[currentInput](true);
+    } else {
+      inputMap[currentInput](false);
+    }
+  }
+
+  const errorClass = (currentInput) => {
+    const inputMap = {
+      "name": nameError,
+      "revenue": revenueError,
+      "margin": marginError,
+      "location": locationError
+    }
+
+    if (inputMap[currentInput] === true) {
+      return " input-error";
+    } else {
+      return "";
+    }
+  }
+
+  const displayError = (currentInput) => {
+    const inputMap = {
+      "name": nameError,
+      "revenue": revenueError,
+      "margin": marginError,
+      "location": locationError
+    }
+
+    const messageMap = {
+      "name": "Name",
+      "revenue": "Revenue",
+      "margin": "Margin",
+      "location": "Location"
+    }
+
+    if (inputMap[currentInput] === true) {
+      return (
+        <div className="row">
+          <div className="col-12 error-text-wrapper">
+            <p className="error-text">{messageMap[currentInput]} required</p>
+          </div>
+        </div>
+      );
+    } else {
+      return;
+    }
+  }
+
+  const emptyCheck = () => {
+    if (tName === "" ||
+    tRevenue === "" ||
+    tMargin === "" ||
+    tLocation === "") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const errorCheck = () => {
+    if (nameError === true ||
+    revenueError === true ||
+    marginError === true ||
+    locationError === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const disableIfErrors = () => {
+    if (errorCheck() || emptyCheck()) {
+      return "disabled";
+    } else {
+      return "";
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     toggleFormClass();
@@ -78,27 +170,50 @@ function UpdateTarget(props) {
         <form onSubmit={handleSubmit} className={formClass()}>
           <div className="row">
             <label className="col-4 label-edit"><span>Name:</span></label>
-            <input className="col-8 input-edit" onChange={handleNameChange} value={tName} />
+            <input className={"col-8 input-edit" + errorClass("name")} 
+            onChange={handleNameChange} 
+            value={tName}
+            onBlur={(e) => handleError(e, "name")} />
           </div>
+
+          {displayError("name")}
 
           <div className="row">
             <label className="col-4 label-edit"><span>Revenue:</span></label>
-            <input className="col-8 input-edit" onChange={handleRevenueChange} value={tRevenue} /> <br/>
+            <input className={"col-8 input-edit" + errorClass("revenue")} 
+            onChange={handleRevenueChange} 
+            value={tRevenue}
+            onBlur={(e) => handleError(e, "revenue")} />
           </div>
+
+          {displayError("revenue")}
 
           <div className="row">
             <label className="col-4 label-edit"><span>Margin:</span></label>
-            <input className="col-8 input-edit" onChange={handleMarginChange} value={tMargin} /> <br/>
+            <input className={"col-8 input-edit" + errorClass("margin")} 
+            onChange={handleMarginChange} 
+            value={tMargin}
+            onBlur={(e) => handleError(e, "margin")} />
           </div>
+
+          {displayError("margin")}
 
           <div className="row">
             <label className="col-4 label-edit"><span>Location:</span></label>
-            <input className="col-8 input-edit" onChange={handleLocationChange} value={tLocation} /> <br/>
+            <input className={"col-8 input-edit" + errorClass("location")} 
+            onChange={handleLocationChange} 
+            value={tLocation}
+            onBlur={(e) => handleError(e, "location")} />
           </div>
+
+          {displayError("location")}
 
           <div className="row">
             <div className="col-12">
-              <button className="update-button">Update</button>
+              <button 
+              className="update-button"
+              disabled={disableIfErrors()}>
+              Update</button>
             </div>
           </div>
         </form>

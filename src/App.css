@@ -101,6 +101,12 @@ button {
   width: 100%;
 }
 
+.update-button:disabled {
+  background-color: #999;
+  border-color: #999;
+  color: #777;
+}
+
 .edit-button:focus, .icon-button:focus {
   outline: none;
 }
@@ -117,6 +123,23 @@ button {
 .input-edit {
   border: 1px solid #255F85;
   padding: 5px;
+}
+
+.input-error {
+  border: 1px solid #f52000;
+}
+
+.error-text-wrapper {
+  text-align: right;
+}
+
+.error-text {
+  margin-top: 2px;
+  color: #f52000;
+}
+
+.disabled {
+  disabled: disabled;
 }
 
 @media only screen and (max-width: 768px) {
