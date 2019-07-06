@@ -14,10 +14,12 @@ import Legend from './Legend';
 
 // Assets
 import { mockTargets } from './mock-targets.js';
+import { formatCurrency, formatPercentage } from './utils.js';
 import './App.css';
 
 function App() {
   const [targets, setTargets] = useState(mockTargets);
+  const [sortType, setSortType] = useState("unsorted");
 
   const tileStatusClass = (status) => {
     if (status === "researching") {
@@ -78,10 +80,43 @@ function App() {
     setTargets(newTargets);
   }
 
+  // Sorting / Filtering
+  let modifiedTargets;
 
+  if (sortType === "unsorted") {
+    modifiedTargets = targets;
+  } else if (sortType === "sortByRevenue") {
+    modifiedTargets = targets.sort((obj1, obj2) => {
+      return obj2.revenue - obj1.revenue;
+    });
+  } else if (sortType === "sortByMargin") {
+    modifiedTargets = targets.sort((obj1, obj2) => {
+      return obj2.margin - obj1.margin; 
+    });
+  } else if (sortType === "sortByName") {
+    modifiedTargets = targets.sort((obj1, obj2) => {
+      if (obj1.name < obj2.name) {
+        return -1;
+      } else if (obj1.name > obj2.name) {
+        return 1;
+      }
+    });
+  }
+
+  const sortTargets = (e) => {
+    if (e.target.value === "Name") {
+      setSortType("sortByName");
+    } else if (e.target.value === "Revenue") {
+      setSortType("sortByRevenue");
+    } else if (e.target.value === "Margin") {
+      setSortType("sortByMargin");
+    } else {
+      setSortType("unsorted");
+    }
+  }
 
   // Read
-  const targetList = targets.map((target, index) => {
+  const targetList = modifiedTargets.map((target, index) => {
     return (
       <ul key={index} className="col-10 col-lg-3 offset-1 offset-lg-0 tile">
         <div className="row">
@@ -93,13 +128,13 @@ function App() {
 
           <div className="col-12">
             <li>
-              <span className="property">Revenue:</span> {target.revenue} 
+              <span className="property">Revenue:</span> {formatCurrency(target.revenue)} 
             </li>
           </div>
 
           <div className="col-12">
             <li>  
-              <span className="property">Margin:</span> {target.margin}
+              <span className="property">Margin:</span> {formatPercentage(target.margin)}
             </li>
           </div>
 
@@ -178,6 +213,12 @@ function App() {
       
       <div className="container">
         <Legend />
+        <select onChange={sortTargets}>
+          <option></option>
+          <option>Name</option>
+          <option>Revenue</option>
+          <option>Margin</option>
+        </select>
         
         <div className="row">
           {targetList}
