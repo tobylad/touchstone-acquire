@@ -48,20 +48,15 @@ function UpdateTarget(props) {
     }
   }
 
-  const handleNameChange = (e) => {
-    setTName(e.target.value);
-  }
+  const handleChange = (e, currentInput) => {
+    const inputMap = {
+      "name": setTName,
+      "revenue": setTRevenue,
+      "margin": setTMargin,
+      "location": setTLocation
+    }
 
-  const handleRevenueChange = (e) => {
-    setTRevenue(e.target.value);
-  }
-
-  const handleMarginChange = (e) => {
-    setTMargin(e.target.value);
-  }
-
-  const handleLocationChange = (e) => {
-    setTLocation(e.target.value);
+    inputMap[currentInput](e.target.value);
   }
 
   const handleError = (e, currentInput) => {
@@ -152,6 +147,14 @@ function UpdateTarget(props) {
     }
   }
 
+  const hideIfFiltered = () => {
+    if (props.filter !== "") {
+      return " hide";
+    } else {
+      return "";
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     toggleFormClass();
@@ -167,7 +170,7 @@ function UpdateTarget(props) {
         <div className="row">
           <div className="col-12">
             <button className="edit-button" onClick={toggleFormClass}>
-              <img src={editIcon} alt="edit" className="icon" />
+              <img src={editIcon} alt="edit" className={"icon" + hideIfFiltered()} />
             </button>
           </div>
         </div>
@@ -176,7 +179,7 @@ function UpdateTarget(props) {
           <div className="row">
             <label className="col-4 label-edit"><span>Name:</span></label>
             <input className={"col-8 input-edit" + errorClass("name")} 
-            onChange={handleNameChange} 
+            onChange={(e)=> handleChange(e, "name")} 
             value={tName}
             onBlur={(e) => handleError(e, "name")} />
           </div>
@@ -186,7 +189,7 @@ function UpdateTarget(props) {
           <div className="row">
             <label className="col-4 label-edit"><span>Revenue:</span></label>
             <input className={"col-8 input-edit" + errorClass("revenue")} 
-            onChange={handleRevenueChange} 
+            onChange={(e)=> handleChange(e, "revenue")} 
             value={tRevenue}
             onBlur={(e) => handleError(e, "revenue")} />
           </div>
@@ -196,7 +199,7 @@ function UpdateTarget(props) {
           <div className="row">
             <label className="col-4 label-edit"><span>Margin:</span></label>
             <input className={"col-8 input-edit" + errorClass("margin")} 
-            onChange={handleMarginChange} 
+            onChange={(e)=> handleChange(e, "margin")} 
             value={tMargin}
             onBlur={(e) => handleError(e, "margin")} />
           </div>
@@ -206,7 +209,7 @@ function UpdateTarget(props) {
           <div className="row">
             <label className="col-4 label-edit"><span>Location:</span></label>
             <input className={"col-8 input-edit" + errorClass("location")} 
-            onChange={handleLocationChange} 
+            onChange={(e)=> handleChange(e, "location")} 
             value={tLocation}
             onBlur={(e) => handleError(e, "location")} />
           </div>

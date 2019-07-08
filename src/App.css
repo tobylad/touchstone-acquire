@@ -146,6 +146,7 @@ button {
   color: #255F85;
   font-size: .75rem;
   margin-right: 5px;
+  margin-left: 10px;
 }
 
 .sort-select {
@@ -153,8 +154,24 @@ button {
   font-size: .75rem;
 }
 
+.clear-filters-wrapper {
+  text-align: right;
+}
+
+.clear-filters {
+  border: 1px solid #255F85;
+  border-radius: 5px;
+  color: #255F85;
+  font-size: .75rem;
+  margin-left: 5px;
+}
+
 @media only screen and (max-width: 768px) {
   div.page-title h1 {
     font-size: 200%;
+  }
+
+  .clear-filters {
+    font-size: .5rem;
   }
 }

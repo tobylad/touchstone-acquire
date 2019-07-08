@@ -71,6 +71,12 @@ function Legend(props) {
         </div>
 
       </div>
+
+      <div className={"row" + legendShowHide()}>
+        <div className="col-12 toggle-legend-disclaimer">
+          <span>Note: If filter is active, updating is disabled.</span>
+        </div>
+      </div>
     </div>
   )
 }

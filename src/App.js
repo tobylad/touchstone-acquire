@@ -14,12 +14,15 @@ import Legend from './Legend';
 
 // Assets
 import { mockTargets } from './mock-targets.js';
-import { formatCurrency, formatPercentage, modifyTargets } from './utils.js';
+import { formatCurrency, formatPercentage } from './utils.js';
+import { handleTargetSort } from './sort.js';
+import { handleTargetFilter } from './filter.js';
 import './App.css';
 
 function App() {
   const [targets, setTargets] = useState(mockTargets);
   const [sortType, setSortType] = useState("unsorted");
+  const [filterType, setFilterType] = useState("");
 
   const tileStatusClass = (status) => {
     if (status === 1) {
@@ -44,7 +47,7 @@ function App() {
           revenue: targetRevenue,
           margin: targetMargin,
           location: targetLocation,
-          status: 1
+          status: 3
         }
       ];
 
@@ -57,6 +60,8 @@ function App() {
       newTargets[i].location = targetLocation;
       
     }
+
+    setSortType("unsorted");
     setTargets(newTargets);
   }
 
@@ -74,7 +79,9 @@ function App() {
     setSortType("unsorted");
   }
 
-  // Update - Sorting
+  // Sorting / Filtering
+  let modifiedTargets;
+
   const sortTargets = (e) => {
     if (e.target.value === "") {
       setSortType("unsorted");
@@ -83,7 +90,23 @@ function App() {
     }
   }
 
-  let modifiedTargets = modifyTargets(targets, sortType);
+  const handleFilterTypeChange = (e) => {
+    setFilterType(e.target.value);
+  }
+
+  const clearFilters = () => {
+    setFilterType("");
+  }
+
+  const hideIfFiltered = () => {
+    if (filterType !== "") {
+      return " hide"
+    } else {
+      return "";
+    }
+  }
+
+  modifiedTargets = handleTargetFilter(handleTargetSort(targets, sortType), filterType);
 
   // Delete
   const destroyTarget = (i) => {
@@ -133,7 +156,7 @@ function App() {
             <button 
               onClick={() => updateStatus(index, "researching")}
               className="icon-button">
-              <img src={researchIcon} alt="researching" className="icon" />
+              <img src={researchIcon} alt="researching" className={"icon" + hideIfFiltered()} />
             </button>
           </div>
 
@@ -141,7 +164,7 @@ function App() {
             <button 
               onClick={() => updateStatus(index, "pending")}
               className="icon-button">
-              <img src={pendingIcon} alt="pending" className="icon" />
+              <img src={pendingIcon} alt="pending" className={"icon" + hideIfFiltered()} />
             </button>
           </div>
 
@@ -149,7 +172,7 @@ function App() {
             <button 
               onClick={() => updateStatus(index, "approved")}
               className="icon-button">
-              <img src={approvedIcon} alt="approve" className="icon" />
+              <img src={approvedIcon} alt="approve" className={"icon" + hideIfFiltered()} />
             </button>
           </div>
 
@@ -157,7 +180,7 @@ function App() {
             <button 
               onClick={() => updateStatus(index, "declined")}
               className="icon-button">
-              <img src={declinedIcon} alt="decline" className="icon" />
+              <img src={declinedIcon} alt="decline" className={"icon" + hideIfFiltered()} />
             </button>
           </div>
 
@@ -165,12 +188,12 @@ function App() {
             <button 
               onClick={() => destroyTarget(index)}
               className="icon-button">
-              <img src={deleteIcon} alt="delete" className="icon" />
+              <img src={deleteIcon} alt="delete" className={"icon" + hideIfFiltered()} />
             </button>
           </div> 
         </div>
         
-        <UpdateTarget currentTarget={target} edit={targetUpdates} i={index} />
+        <UpdateTarget currentTarget={target} edit={targetUpdates} i={index} filter={filterType} />
       </ul>
 
 
@@ -191,15 +214,46 @@ function App() {
       
       <div className="container">
         <Legend />
-        <span className="sort-label">Sort by:</span>
-        <select className="sort-select" onChange={sortTargets}>
-          <option></option>
-          <option>Name</option>
-          <option>Revenue</option>
-          <option>Margin</option>
-          <option>Status</option>
-        </select>
-        
+
+
+        <div className="row">
+          <div className="col-5 col-lg-3">
+            <span className="sort-label">Sort by:</span>
+            <select className="sort-select" onChange={sortTargets}>
+              <option></option>
+              <option>Name</option>
+              <option>Revenue</option>
+              <option>Margin</option>
+              <option>Status</option>
+            </select>
+          </div>
+          
+          <div className="col-7 col-lg-3">
+            <span className="sort-label">Filter by:</span>
+            <select className="sort-select" onChange={handleFilterTypeChange}>
+              <option></option>
+              <option>Status: Approved</option>
+              <option>Status: Pending</option>
+              <option>Status: Researching</option>
+              <option>Status: Declined</option>
+              <option>Margin: High</option>
+              <option>Margin: Average</option>
+              <option>Margin: Low</option>
+              <option>Revenue: 9 figures+</option>
+              <option>Revenue: 7-8 figures</option>
+              <option>Revenue: 6 figures or less</option>
+            </select>
+          </div>
+
+          <div className="col-12 col-lg-6 clear-filters-wrapper">
+            <button 
+              className="clear-filters"
+              onClick={clearFilters}>
+              Clear filters
+            </button>
+          </div>
+        </div>
+
         <div className="row">
           {targetList}
           <CreateTarget add={targetUpdates} />
