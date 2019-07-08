@@ -21,7 +21,7 @@ export const handleTargetFilter = (targets, filterType) => {
     filterByRevenue(targets, filteredTargets, "9+");
   } else if (filterType === "Revenue: 7-8 figures") {
     filterByRevenue(targets, filteredTargets, "7-8");
-  } else if (filterType === "Revenue: 6 figures or less") {
+  } else if (filterType === "Revenue: 6 figures-") {
     filterByRevenue(targets, filteredTargets, "<6");
   }
 
