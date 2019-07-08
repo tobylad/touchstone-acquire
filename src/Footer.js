@@ -27,14 +27,6 @@ function Footer() {
               React.js
             </a>
           </div>
-          
-          <div className="col-6 col-lg-3 credit">
-            <a href="https://www.shopify.com/tools/business-name-generator"
-              target="_blank"
-              rel="noopener noreferrer">
-              Shopify
-            </a>
-          </div>
 
           <div className="col-6 col-lg-3 credit">
             <a href="https://fontawesome.com/license" 
