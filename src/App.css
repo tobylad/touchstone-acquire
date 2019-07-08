@@ -142,6 +142,17 @@ button {
   disabled: disabled;
 }
 
+.sort-label {
+  color: #255F85;
+  font-size: .75rem;
+  margin-right: 5px;
+}
+
+.sort-select {
+  border: 1px solid #255F85;
+  font-size: .75rem;
+}
+
 @media only screen and (max-width: 768px) {
   div.page-title h1 {
     font-size: 200%;

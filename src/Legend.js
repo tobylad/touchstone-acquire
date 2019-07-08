@@ -41,9 +41,9 @@ function Legend(props) {
 
       <div className={"row legend" + legendShowHide()}>
         <div className="col-4 col-lg-2">
-          <img src={researchIcon} alt="research" className="small-icon" />
-          <span className="research-text">Researching</span>
-        </div>
+          <img src={approvedIcon} alt="approve" className="small-icon" />
+          <span className="approved-text">Approved</span>
+        </div>        
 
         <div className="col-4 col-lg-2">
           <img src={pendingIcon} alt="pending" className="small-icon" />
@@ -51,8 +51,8 @@ function Legend(props) {
         </div>
 
         <div className="col-4 col-lg-2">
-          <img src={approvedIcon} alt="approve" className="small-icon" />
-          <span className="approved-text">Approved</span>
+          <img src={researchIcon} alt="research" className="small-icon" />
+          <span className="research-text">Researching</span>
         </div>
 
         <div className="col-4 col-lg-2">
