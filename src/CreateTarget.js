@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import addIcon from './plus-solid.svg';
 import deleteIcon from './trash-alt-solid.svg';
 
@@ -12,6 +12,16 @@ function CreateTarget(props) {
   const [revenueError, setRevenueError] = useState(false);
   const [marginError, setMarginError] = useState(false);
   const [locationError, setLocationError] = useState(false);
+
+  useEffect(() => {
+      setNameError(false);
+      setRevenueError(false);
+      setMarginError(false);
+      setLocationError(false);
+    }, 
+
+    [nameError, revenueError, marginError, locationError]
+  )
 
   const formWrapperClass = () => {
     if (formHidden === true) {
@@ -37,20 +47,15 @@ function CreateTarget(props) {
     setTLocation("");
   }
 
-  const handleNameChange = (e) => {
-    setTName(e.target.value);
-  }
+  const handleChange = (e, currentInput) => {
+    const inputMap = {
+      "name": setTName,
+      "revenue": setTRevenue,
+      "margin": setTMargin,
+      "location": setTLocation
+    }
 
-  const handleRevenueChange = (e) => {
-    setTRevenue(e.target.value);
-  }
-
-  const handleMarginChange = (e) => {
-    setTMargin(e.target.value);
-  }
-
-  const handleLocationChange = (e) => {
-    setTLocation(e.target.value);
+    inputMap[currentInput](e.target.value);
   }
 
   const handleError = (e, currentInput) => {
@@ -158,7 +163,7 @@ function CreateTarget(props) {
             <div className="row">
               <label className="col-4 label-edit"><span>Name:</span></label>
               <input className={"col-8 input-edit" + errorClass("name")} 
-              onChange={handleNameChange} 
+              onChange={(e) => handleChange(e, "name")} 
               value={tName} 
               onBlur={(e) => handleError(e, "name")} />
             </div>
@@ -168,7 +173,7 @@ function CreateTarget(props) {
             <div className="row">
               <label className="col-4 label-edit"><span>Revenue:</span></label>
               <input className={"col-8 input-edit" + errorClass("revenue")} 
-              onChange={handleRevenueChange} 
+              onChange={(e) => handleChange(e, "revenue")} 
               value={tRevenue} 
               onBlur={(e) => handleError(e, "revenue")} />
             </div>
@@ -178,7 +183,7 @@ function CreateTarget(props) {
             <div className="row">
               <label className="col-4 label-edit"><span>Margin:</span></label>
               <input className={"col-8 input-edit" + errorClass("margin")}
-              onChange={handleMarginChange} 
+              onChange={(e)=> handleChange(e, "margin")} 
               value={tMargin} 
               onBlur={(e) => handleError(e, "margin")} />
             </div>
@@ -188,7 +193,7 @@ function CreateTarget(props) {
             <div className="row">
               <label className="col-4 label-edit"><span>Location:</span></label>
               <input className={"col-8 input-edit" + errorClass("location")}
-              onChange={handleLocationChange} 
+              onChange={(e) => handleChange(e, "location")} 
               value={tLocation} 
               onBlur={(e) => handleError(e, "location")} />
             </div>
