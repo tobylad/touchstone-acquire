@@ -48,6 +48,9 @@ https://touchstone-acquire.firebaseapp.com
 *Legend*  
 -The 'toggle legend' shows what target status each icon represents.  
 
+**Testing**  
+-This project was tested with manual unit testing.  Upon deployment, a mobile device was also used to test responsiveness.  
+
 **Backlog**  
 
 -Graphing with d3.js or p5.js  
