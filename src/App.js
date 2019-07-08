@@ -241,7 +241,7 @@ function App() {
               <option>Margin: Low</option>
               <option>Revenue: 9 figures+</option>
               <option>Revenue: 7-8 figures</option>
-              <option>Revenue: 6 figures or less</option>
+              <option>Revenue: 6 figures-</option>
             </select>
           </div>
 
