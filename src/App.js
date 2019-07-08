@@ -14,7 +14,7 @@ import Legend from './Legend';
 
 // Assets
 import { mockTargets } from './mock-targets.js';
-import { formatCurrency, formatPercentage } from './utils.js';
+import { formatCurrency, formatPercentage, modifyTargets } from './utils.js';
 import './App.css';
 
 function App() {
@@ -22,13 +22,13 @@ function App() {
   const [sortType, setSortType] = useState("unsorted");
 
   const tileStatusClass = (status) => {
-    if (status === "researching") {
-      return " researching";
-    } else if (status === "pending") {
-      return " pending";
-    } else if (status === "approved") {
+    if (status === 1) {
       return " approved";
-    } else if (status === "declined") {
+    } else if (status === 2) {
+      return " pending";
+    } else if (status === 3) {
+      return " researching";
+    } else if (status === 4) {
       return " declined";
     }
   }
@@ -44,7 +44,7 @@ function App() {
           revenue: targetRevenue,
           margin: targetMargin,
           location: targetLocation,
-          status: "researching"
+          status: 1
         }
       ];
 
@@ -62,16 +62,28 @@ function App() {
 
   const updateStatus = (i, newStatus) => {
     const statusMap = {
-      "researching": "researching",
-      "pending": "pending",
-      "approved": "approved",
-      "declined": "declined"
+      "approved": 1,
+      "pending": 2,
+      "researching": 3,
+      "declined": 4
     };
 
     let newTargets = [...targets];
     newTargets[i].status = statusMap[newStatus];
     setTargets(newTargets);
+    setSortType("unsorted");
   }
+
+  // Update - Sorting
+  const sortTargets = (e) => {
+    if (e.target.value === "") {
+      setSortType("unsorted");
+    } else {
+      setSortType(e.target.value);
+    }
+  }
+
+  let modifiedTargets = modifyTargets(targets, sortType);
 
   // Delete
   const destroyTarget = (i) => {
@@ -80,40 +92,6 @@ function App() {
     setTargets(newTargets);
   }
 
-  // Sorting / Filtering
-  let modifiedTargets;
-
-  if (sortType === "unsorted") {
-    modifiedTargets = targets;
-  } else if (sortType === "sortByRevenue") {
-    modifiedTargets = targets.sort((obj1, obj2) => {
-      return obj2.revenue - obj1.revenue;
-    });
-  } else if (sortType === "sortByMargin") {
-    modifiedTargets = targets.sort((obj1, obj2) => {
-      return obj2.margin - obj1.margin; 
-    });
-  } else if (sortType === "sortByName") {
-    modifiedTargets = targets.sort((obj1, obj2) => {
-      if (obj1.name < obj2.name) {
-        return -1;
-      } else if (obj1.name > obj2.name) {
-        return 1;
-      }
-    });
-  }
-
-  const sortTargets = (e) => {
-    if (e.target.value === "Name") {
-      setSortType("sortByName");
-    } else if (e.target.value === "Revenue") {
-      setSortType("sortByRevenue");
-    } else if (e.target.value === "Margin") {
-      setSortType("sortByMargin");
-    } else {
-      setSortType("unsorted");
-    }
-  }
 
   // Read
   const targetList = modifiedTargets.map((target, index) => {
@@ -213,11 +191,13 @@ function App() {
       
       <div className="container">
         <Legend />
-        <select onChange={sortTargets}>
+        <span className="sort-label">Sort by:</span>
+        <select className="sort-select" onChange={sortTargets}>
           <option></option>
           <option>Name</option>
           <option>Revenue</option>
           <option>Margin</option>
+          <option>Status</option>
         </select>
         
         <div className="row">
