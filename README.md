@@ -9,7 +9,7 @@ https://touchstone-acquire.firebaseapp.com
 **Technologies/Tools:**
 
 -React.js  
--Bootstrap.css
+-Bootstrap.css  
 -Font Awesome Icons  
 -Coolors color scheme generator  
 
@@ -42,7 +42,11 @@ https://touchstone-acquire.firebaseapp.com
 
 *Filtering targets*  
 -Click how you'd like to filter the targets using the 'Filter by:' dropdown.  
+-Clear the current filters by clicking the 'clear filters' button.  
 -Note: Only one filter at a time can be used, and no updates can be made to a target while the list is filtered.  
+
+*Legend*  
+-The 'toggle legend' shows what target status each icon represents.  
 
 **Backlog**  
 
