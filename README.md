@@ -1,7 +1,3 @@
-# To the Insiten hiring team:
-
-Hi, and welcome to Touchstone Acquire!  I'm Toby Ladislas, and this is my coding challenge - hope you enjoy!  I had a ton of fun making this!
-
 Link to deployed project:  
 
 https://touchstone-acquire.firebaseapp.com
@@ -54,4 +50,4 @@ https://touchstone-acquire.firebaseapp.com
 **Backlog**  
 
 -Graphing with d3.js or p5.js  
--A 'show' page.  If I had more in-depth knowledge of mergers/acquisitions I could see this happening, but I kept it compact.
+-A 'show' page
